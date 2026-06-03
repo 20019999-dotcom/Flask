@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Olá, Flask!</h1>
+        <p><a href="{{ url_for('form') }}">Formulário</a></p>
+        <p><a href="{{ url_for('contato') }}">Formulário 2</a></p>
+    </main>
+</body>
+</html>

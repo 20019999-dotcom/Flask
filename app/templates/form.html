@@ -1,78 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>form</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        form {
-            margin: 20px;
-            text-align: center;
-        }
-        .card {
-            display: inline-block;
-            padding: 30px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.03);
-        }
-        span {
-            color: #0d6ed6;
-        }
-        input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 260px;
-            display: block;
-            margin: 0.5rem auto 1rem auto;
-            background: #111;
-            color: white;
-        }
-        button {
-            padding: 10px 24px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 1.25rem; /* botão um pouco mais afastado */
-            display: inline-block;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
+
 <body>
-    <div class="card">
-        <form action="" method="GET">
-            <h3>Usando <span>GET</span></h3>
-            <input type="text" name="pesquisa" placeholder="pesquisa">
-            <div>
-                <button type="submit">GET</button>
-            </div>
-        </form>
-    </div>
-    <hr>
-    <hr>
-     <div class="card">
-        <form action="" method="post">
-            <h3>usando <span>POST</span></h3>
-            <input type="text" name="pesquisa" placeholder="pesquisa">
-            <div>
-                <button type="submit">GET</button>
-            </div>
-        </form>
-    </div>
+    <main class="container">
+        <section>
+            <form action="" method="get"> <!-- Formulário GET -->
+                <h3>USANDO GET</h3>
+                <input type="text" name="pesquisar" placeholder="pesquisa"> <!-- campo pesquisa -->
+                <div>
+                    <button type="submit">pesquisa</button>
+                </div>
+            </form>
+        </section>
+
+        <hr>
+        <p>voce digitou GET: {{ pesquisar_get }}</p>
+
+        <hr>
+
+        <section>
+            <h3>USANDO POST</h3>
+            <form action="" method="post"> <!-- Formulário POST -->
+                <input type="text" name="pesquisar" placeholder="pesquisa"> <!-- campo pesquisa -->
+                <button type="submit">pesquisa</button>
+                <p>voce digitou POST: {{ request.form.get('pesquisar', '') }}</p>
+            </form>
+        </section>
+    </main>
 </body>
+
 </html>

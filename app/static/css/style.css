@@ -1,0 +1,53 @@
+/* Estilos principais do site */
+:root{
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --accent:#2b6cb0;
+    --text:#222;
+}
+html,body{height:100%;}
+body{
+    margin:0;
+    font-family:Segoe UI, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+}
+.container{
+    max-width:900px;
+    margin:40px auto;
+    background:var(--card);
+    padding:24px;
+    border-radius:8px;
+    box-shadow:0 6px 18px rgba(20,20,20,0.06);
+}
+h1,h2,h3{color:var(--accent);margin-top:0}
+form{margin-top:16px}
+label{display:block;margin:12px 0 6px;font-weight:600}
+input[type=text], textarea, .wtforms-field{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #dbe6f0;
+    border-radius:6px;
+    box-sizing:border-box;
+    font-size:14px;
+}
+textarea{resize:vertical}
+button, input[type=submit], .btn{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+}
+.btn-secondary{background:#e2e8f0;color:#111}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.footer{font-size:13px;color:#666;margin-top:18px}
+
+/* Responsivo */
+@media (max-width:640px){
+    .container{margin:16px;padding:16px}
+}
