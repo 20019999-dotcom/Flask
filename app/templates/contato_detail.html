@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">Detalhes do Contato</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ obj.nome }}</h5>
+
+                    <p><strong>Email:</strong> {{ obj.email }}</p>
+                    <p><strong>Assunto:</strong> {{ obj.assunto }}</p>
+                    <p><strong>Mensagem:</strong></p>
+                    <div class="alert alert-light">
+                        {{ obj.mensagem }}
+                    </div>
+
+                    <p><strong>Data de Envio:</strong> {{ obj.data_envio.strftime('%d/%m/%Y às %H:%M:%S') if
+                        obj.data_envio else 'Não informado' }}</p>
+
+                    <p>
+                        <strong>Respondido:</strong>
+                        {% if obj.respondido == 1 %}
+                        <span class="badge bg-success">Sim</span>
+                        {% else %}
+                        <span class="badge bg-danger">Não</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <a href="{{ url_for('listacontato') }}" class="btn btn-primary">Voltar para Lista</a>
+                <a href="{{ url_for('contato') }}" class="btn btn-secondary">Novo Contato</a>
+
+                <form method="post" action="{{ url_for('marcarRespondido', id=obj.id) }}" style="display:inline;">
+                    {% if obj.respondido == 1 %}
+                    <button type="submit" class="btn btn-warning">Marcar como Não Respondido</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success">Marcar como Respondido</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
