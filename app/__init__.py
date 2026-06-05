@@ -3,12 +3,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+import os
+load_dotenv('.env')  # Carrega variáveis de ambiente do arquivo .env  
+print("DATABASE_URI =", os.getenv("DATABASE_URI"))
 
 app = Flask(__name__)  # Instância da aplicação Flask
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # URL do banco SQLite
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')  # URL do banco SQLite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desativa warnings de rastreamento
-app.config['SECRET_KEY'] = 'wtww4twdweeeeeeeeeeeeeeeeee'  # Chave secreta para formulários
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Chave secreta para formulários
 
 db = SQLAlchemy(app)  # ORM SQLAlchemy
 migrate = Migrate(app, db)  # Flask-Migrate para migrações de esquema
