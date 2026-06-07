@@ -1,5 +1,3 @@
-"""Ponto de entrada da aplicação para desenvolvimento."""
-
 from app import app  # Importa a app Flask
 
 
