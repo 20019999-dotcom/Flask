@@ -126,3 +126,5 @@ def comentar():
         return redirect(url_for("postlista"))
 
     return render_template("comentar.html", form=form, post_id=post_id)
+
+

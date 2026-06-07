@@ -5,22 +5,10 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card-modern">
-            <div class="card-header-custom">
-                <i class="fas fa-rocket me-2"></i>Bem-vindo ao FlaskApp
-            </div>
-            <div class="card-body p-4">
-                <h2 class="mb-4">Olá, Flask!</h2>
-
                 {% if current_user.is_authenticated %}
                     <div class="alert alert-info alert-custom">
                         <i class="fas fa-user-check me-2"></i>
-                        Logado como: <strong>{{ current_user.nome }} {{ current_user.sobrenome }}</strong>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <h5><i class="fas fa-chart-line me-2"></i>Suas estatísticas</h5>
-                        <p>Continue compartilhando suas ideias!</p>
+                        Logado como: <strong>{{ current_user.nome }}</strong>
                     </div>
                 {% else %}
                     <div class="alert alert-info alert-custom">
