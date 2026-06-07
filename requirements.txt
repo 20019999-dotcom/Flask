@@ -20,6 +20,7 @@ Mako @ file:///C:/Users/Admin/Downloads/m/mako-1.3.12-py3-none-any.whl#sha256=8f
 MarkupSafe==3.0.3
 packaging==26.2
 psycopg2==2.9.12
+psycopg2-binary==2.9.12
 python-dotenv==1.2.2
 setuptools==82.0.1
 SQLAlchemy @ file:///C:/Users/Admin/Downloads/sqlalchemy-2.0.50-py3-none-any.whl#sha256=92064363517a3ff8212b5a93b8c62876579d8dfd1ca5b561335f30152d884fa9
