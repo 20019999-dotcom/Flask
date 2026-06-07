@@ -1,6 +1,11 @@
 <nav class="mb-4">
     <a href="{{ url_for('home') }}" class="btn btn-secondary">Início</a>
+
     <a href="{{ url_for('contato') }}" class="btn btn-primary">Novo Contato</a>
     <a href="{{ url_for('listacontato') }}" class="btn btn-primary">Listar Contatos</a>
+
     <a href="{{ url_for('form') }}" class="btn btn-secondary">Formulário</a>
+
+    <a href="{{ url_for('post') }}" class="btn btn-secondary">Novo Post</a>
+    <a href="{{ url_for('postlista') }}" class="btn btn-secondary">Lista de Posts</a>
 </nav>

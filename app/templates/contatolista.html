@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -16,47 +15,28 @@
                 </div>
             </form>
 
-            {% if dados %}
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead class="table-dark">
+                <table class="table">
+                    <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
                             <th>Assunto</th>
                             <th>Respondido</th>
-                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for linha in dados %}
+                        {% for contato in dados %}
                         <tr>
-                            <td>{{ linha.nome }}</td>
-                            <td>{{ linha.email }}</td>
-                            <td>{{ linha.assunto }}</td>
-                            <td>
-                                {% if linha.respondido == 1 %}
-                                <span class="badge bg-success">Sim</span>
-                                {% else %}
-                                <span class="badge bg-danger">Não</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <a href="{{ url_for('contatoDetail', id=linha.id) }}" class="btn btn-sm btn-info">Ver
-                                    Detalhes</a>
-                            </td>
+                            <td>{{ contato.nome }}</td>
+                            <td>{{ contato.email }}</td>
+                            <td>{{ contato.assunto }}</td>
+                            <td>{{ "Sim" if contato.respondido else "Não" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            {% else %}
-            <div class="alert alert-info">
-                Nenhum contato encontrado. <a href="{{ url_for('contato') }}">Criar novo contato</a>
-            </div>
-            {% endif %}
-
-            <a href="{{ url_for('contato') }}" class="btn btn-success mt-3">Novo Contato</a>
         </div>
     </div>
 </div>

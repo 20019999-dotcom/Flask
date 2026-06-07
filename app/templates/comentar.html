@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Comentar - FlaskApp{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card-modern">
+            <div class="card-header-custom">
+                <i class="fas fa-comment me-2"></i>Adicionar Comentário
+            </div>
+            <div class="card-body p-4">
+                {% if post_id %}
+                    <div class="alert alert-info alert-custom">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Comentando no post #{{ post_id }}
+                    </div>
+                {% endif %}
+                
+                <form method="post" novalidate>
+                    {{ form.csrf_token }}
+
+                    <div class="mb-4">
+                        {{ form.comentario.label(class="form-label") }}
+                        {{ form.comentario(class="form-control", rows="4", placeholder="Digite seu comentário...") }}
+                        {% if form.comentario.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.comentario.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('postlista') }}" class="btn btn-outline-custom">
+                            <i class="fas fa-times me-1"></i>Cancelar
+                        </a>
+                        {{ form.submit(class="btn btn-primary-custom") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

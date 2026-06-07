@@ -1,12 +1,84 @@
 {% extends "base.html" %}
 
+{% block title %}Início - FlaskApp{% endblock %}
+
 {% block content %}
-<main class="container mt-5">
 
-    {%include "nav.html"%}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card-modern">
+            <div class="card-header-custom">
+                <i class="fas fa-rocket me-2"></i>Bem-vindo ao FlaskApp
+            </div>
+            <div class="card-body p-4">
+                <h2 class="mb-4">Olá, Flask!</h2>
 
-    <h1 class="mb-4">Olá, Flask!</h1>
+                {% if current_user.is_authenticated %}
+                    <div class="alert alert-info alert-custom">
+                        <i class="fas fa-user-check me-2"></i>
+                        Logado como: <strong>{{ current_user.nome }} {{ current_user.sobrenome }}</strong>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="fas fa-chart-line me-2"></i>Suas estatísticas</h5>
+                        <p>Continue compartilhando suas ideias!</p>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info alert-custom">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Faça login para acessar todos os recursos
+                    </div>
 
-    <p class="mt-3"><a href="{{ url_for('form') }}" class="btn btn-secondary">Formulário</a></p>
-</main>
+                    <form method="POST" novalidate>
+                        {{ form.csrf_token }}
+
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                {{ form.email(class="form-control", placeholder="seu@email.com") }}
+                            </div>
+                            {% if form.email.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.email.errors %}
+                                        <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.senha.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                {{ form.senha(class="form-control", placeholder="********") }}
+                            </div>
+                            {% if form.senha.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.senha.errors %}
+                                        <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-primary-custom") }}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <p class="text-center mb-0">
+                            Não tem cadastro?
+                            <a href="{{ url_for('cadastro') }}" class="text-decoration-none">
+                                <i class="fas fa-user-plus me-1"></i>Cadastre-se aqui
+                            </a>
+                        </p>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

@@ -1,21 +1,33 @@
 """Inicialização da aplicação Flask, configuração e extensões."""
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from dotenv import load_dotenv
 import os
-load_dotenv('.env')  # Carrega variáveis de ambiente do arquivo .env  
-print("DATABASE_URI =", os.getenv("DATABASE_URI"))
 
-app = Flask(__name__)  # Instância da aplicação Flask
+from dotenv import load_dotenv
+from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')  # URL do banco SQLite
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desativa warnings de rastreamento
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Chave secreta para formulários
+# Carrega variáveis de ambiente
+load_dotenv()
 
-db = SQLAlchemy(app)  # ORM SQLAlchemy
-migrate = Migrate(app, db)  # Flask-Migrate para migrações de esquema
+app = Flask(__name__)
 
-from app.models import Contato  # Importa modelos (registra tabelas)
-from app import views  # Importa views (registra rotas)
+# Configurações
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['UPLOAD_FILES'] = r'static/data'
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+bcrypt = Bcrypt(app)
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'home'
+login_manager.login_message = 'Faça login para acessar esta página.'
+login_manager.login_message_category = 'info'
+
+# Importações no final para evitar importação circular
+from app import views

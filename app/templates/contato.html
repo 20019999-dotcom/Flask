@@ -1,64 +1,83 @@
 {% extends "base.html" %}
 
+{% block title %}Contato - FlaskApp{% endblock %}
+
 {% block content %}
 
-<main class="container mt-5">
-    <h1 class="mb-4">Novo Contato</h1>
-    <form method="post" novalidate>
-        {{ form.csrf_token }}
-
-        <div class="mb-3">
-            {{ form.nome.label(class="form-label") }}
-            {{ form.nome(class="form-control") }}
-            {% if form.nome.errors %}
-            <div class="alert alert-danger mt-2">
-                {% for error in form.nome.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card-modern">
+            <div class="card-header-custom">
+                <i class="fas fa-envelope me-2"></i>Formulário de Contato
             </div>
-            {% endif %}
-        </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {{ form.csrf_token }}
 
-        <div class="mb-3">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control") }}
-            {% if form.email.errors %}
-            <div class="alert alert-danger mt-2">
-                {% for error in form.email.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
+                    <div class="mb-3">
+                        {{ form.nome.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            {{ form.nome(class="form-control", placeholder="Seu nome completo") }}
+                        </div>
+                        {% if form.nome.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.nome.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            {{ form.email(class="form-control", placeholder="seu@email.com") }}
+                        </div>
+                        {% if form.email.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.email.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.assunto.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                            {{ form.assunto(class="form-control", placeholder="Assunto da mensagem") }}
+                        </div>
+                        {% if form.assunto.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.assunto.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        {{ form.mensagem.label(class="form-label") }}
+                        {{ form.mensagem(class="form-control", rows="6", placeholder="Digite sua mensagem aqui...") }}
+                        {% if form.mensagem.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.mensagem.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary-custom") }}
+                    </div>
+                </form>
             </div>
-            {% endif %}
         </div>
+    </div>
+</div>
 
-        <div class="mb-3">
-            {{ form.assunto.label(class="form-label") }}
-            {{ form.assunto(class="form-control") }}
-            {% if form.assunto.errors %}
-            <div class="alert alert-danger mt-2">
-                {% for error in form.assunto.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="mb-3">
-            {{ form.mensagem.label(class="form-label") }}
-            {{ form.mensagem(class="form-control", rows="5") }}
-            {% if form.mensagem.errors %}
-            <div class="alert alert-danger mt-2">
-                {% for error in form.mensagem.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="mt-3">
-            {{ form.submit(class="btn btn-primary") }}
-            <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
-</main>
 {% endblock %}

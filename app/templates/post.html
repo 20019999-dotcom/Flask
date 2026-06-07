@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Novo Post - FlaskApp{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card-modern">
+            <div class="card-header-custom">
+                <i class="fas fa-plus-circle me-2"></i>Criar Novo Post
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+
+                    <div class="mb-3">
+                        {{ form.mensagem.label(class="form-label") }}
+                        {{ form.mensagem(class="form-control", rows="5", placeholder="O que você está pensando?") }}
+                        {% if form.mensagem.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.mensagem.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        {{ form.imagem.label(class="form-label") }}
+                        {{ form.imagem(class="form-control", accept="image/*") }}
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>Formatos suportados: JPG, PNG, GIF
+                        </small>
+                        {% if form.imagem.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.imagem.errors %}
+                                    <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('postlista') }}" class="btn btn-outline-custom">
+                            <i class="fas fa-times me-1"></i>Cancelar
+                        </a>
+                        {{ form.submit(class="btn btn-primary-custom") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

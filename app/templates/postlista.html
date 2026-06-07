@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Posts - FlaskApp{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-newspaper me-2"></i>Lista de Posts
+            </h2>
+            <a href="{{ url_for('post') }}" class="btn btn-primary-custom">
+                <i class="fas fa-plus me-1"></i>Novo Post
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-custom">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-image me-1"></i>Imagem</th>
+                        <th><i class="fas fa-comment me-1"></i>Mensagem</th>
+                        <th><i class="fas fa-user me-1"></i>Usuário</th>
+                        <th><i class="fas fa-comments me-1"></i>Comentários</th>
+                        <th><i class="fas fa-cog me-1"></i>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in posts %}
+                    <tr>
+                        <td>
+                            {% if linha.imagem %}
+                                <img src="{{ url_for('static', filename='data/post/' + linha.imagem) }}" 
+                                     alt="Imagem do post" class="post-image">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='img/default.png') }}" 
+                                     alt="Sem imagem" class="post-image">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <strong>{{ linha.mensagem_resumo() }}</strong>
+                            <br>
+                            <small class="text-muted">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                {{ linha.data_criacao.strftime('%d/%m/%Y %H:%M') if linha.data_criacao else 'Data desconhecida' }}
+                            </small>
+                        </td>
+                        <td>
+                            <i class="fas fa-user-circle me-1"></i>
+                            {{ linha.user.nome if linha.user else 'Anônimo' }}
+                        </td>
+                        <td>
+                            {% for comentario in linha.comentarios %}
+                                <div class="comment-item mb-2 p-2 bg-light rounded">
+                                    <small>
+                                        <i class="fas fa-comment-dots text-primary me-1"></i>
+                                        {{ comentario.comentario }}
+                                    </small>
+                                </div>
+                            {% else %}
+                                <small class="text-muted">
+                                    <i class="fas fa-comment-slash me-1"></i>Sem comentários
+                                </small>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('comentar', post_id=linha.id) }}" 
+                               class="btn btn-sm btn-primary-custom">
+                                <i class="fas fa-reply me-1"></i>Comentar
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4">
+                            <i class="fas fa-inbox fa-3x text-muted mb-2 d-block"></i>
+                            <p class="text-muted mb-0">Nenhum post encontrado</p>
+                            <a href="{{ url_for('post') }}" class="btn btn-primary-custom mt-3">
+                                <i class="fas fa-plus me-1"></i>Criar primeiro post
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
